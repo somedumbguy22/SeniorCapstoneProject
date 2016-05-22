@@ -1,0 +1,33 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static "css/bootstrap.css" %}"/>
+    <link rel="stylesheet" href="{% static "css/main.css" %}"/>
+    <link rel="stylesheet" href="{% static "css/select2.min.css" %}" />
+    <link rel="stylesheet" href="{% static "css/select2-bootstrap.css" %}"/>
+    <link rel="stylesheet" href="{% static "css/star-rating.min.css" %}"/>
+    <link rel="icon" type="image/png" href="{% static "images/favicon.png" %}"/>
+    {% block style %}{% endblock %}
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+{% block navbar %}
+    {% include "internal/navbar.html" %}
+{% endblock %}
+<div class="container-fluid" role="main">
+{% block main-container %}{% endblock %}
+</div>
+<script src="{% static "js/jquery.min.js" %}"></script>
+<script src="{% static "js/bootstrap.min.js" %}"></script>
+<script src="{% static "js/bootstrap-treeview.js" %}"></script>
+<script src="{% static "js/select2.min.js" %}"></script>
+<script src="{% static "js/star-rating.min.js" %}"></script>
+<script>
+    $(function () {
+        $("input[class='rating']").rating();
+    });
+</script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

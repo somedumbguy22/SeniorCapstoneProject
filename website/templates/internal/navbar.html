@@ -1,0 +1,69 @@
+{% load staticfiles %}
+<nav id="main-navbar" class="navbar navbar-inverse">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                data-target="#bs-example-navbar-collapse-2">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">
+            <img id="logo" src="{% static "images/logo_alpha.png" %}">
+        </a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Purchase a Gift Card!</a></li>
+            <li><a href="#">Become a Cajun Member!</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Additional Options
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">View Open Orders</a></li>
+                    <li><a href="#">Leave Seller Feedback</a></li>
+                    <li><a href="#">Return a package</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">Manage Payment Options</a></li>
+                    <li class="divider"></li>
+                    <li><a href="{% url "help" %}">Customer Service</a></li>
+                </ul>
+            </li>
+        </ul>
+        <a href="{% url "view_cart" %}"><button type="button" class="btn btn-default navbar-right nav navbar-brand" id="cart-btn"><span class="glyphicon glyphicon-shopping-cart"></span>cart</button></a>
+        <form class="navbar-form navbar-right" role="search" action="/search/">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Search" name="q" id="id_q">
+            </div>
+            <button type="submit" class="btn btn-default" value="Submit">Submit</button>
+        </form>
+    </div>
+</nav>
+<div class="navbar-xs">
+    <div class="navbar-primary">
+        <nav id="secondary-navbar" class="navbar navbar-default navbar-xs navbar-lower" role="navigation">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse collapse-buttons">
+                    <form class="navbar-form navbar-left" role="search">
+                        <a href="{% url 'hot_items' %}" class="btn-sm btn-default">Hot Deals!</a>
+                        <a href="{% url "recently_viewed" %}" class="btn-sm btn-default">Recently Viewed Items</a>
+                        <a href="{% url "help" %}" role="button" class="btn-sm btn-default">Sell Items</a>
+                        <a href="{% url "help" %}" role="button" class="btn-sm btn-default">Help</a>
+                    </form>
+                    <p class="navbar-text navbar-right">
+                        {% if user.is_authenticated %}
+                            <a class="navbar-link" href="{% url "logout" %}">Logout</a>
+                        {% else %}
+                            <a class="navbar-link" href="{% url "login" %}">Login</a>
+                            &nbsp;/&nbsp;
+                            <a class="navbar-link" href="/register">Register</a>
+                        {% endif %}
+                    </p>
+                    {% if user.is_authenticated %}
+                        <p class="navbar-text navbar-right">Hey <a href="#" class="navbar-link">{{ s_user.FirstName }}</a>, buy some shit!&nbsp;&nbsp;</p>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>

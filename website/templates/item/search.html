@@ -1,0 +1,11 @@
+{% extends "twocolumn.html" %}
+{% load item_listing %}
+{% block title %}Jambalaya: A thick stew of tasty deals{% endblock %}
+{% block content %}
+    <div class="page-header">
+        <h1>Search Results</h1>
+        <p>Query: <em>{{ query_string }}</em></p>
+    </div>
+    <br/>
+    {% item_listing items %}
+{% endblock %}

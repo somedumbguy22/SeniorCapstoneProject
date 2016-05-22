@@ -1,0 +1,11 @@
+{% extends "twocolumn.html" %}
+{% load item_listing %}
+{% block title %}Jambalaya: A thick stew of tasty deals{% endblock %}
+{% block content %}
+    <div class="page-header">
+        <h1>Browsing {{ category }}</h1>
+        <p><b>Have something to sell here? <a href="{{ create_link }}">Create an item!</a></b></p>
+    </div>
+    <br/>
+    {% item_listing items %}
+{% endblock %}

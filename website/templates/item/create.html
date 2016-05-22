@@ -1,0 +1,29 @@
+{% extends "onecolumn.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}Jambalaya: Create a new item{% endblock %}
+{% block content %}
+    <h1>Create new item</h1>
+    <p>Please enter some information about the item you'd like to sell. Afterwards we'll walk you through listing an
+        instance of the item.</p>
+    {% crispy form %}
+{% endblock %}
+{% block scripts %}
+    <script>
+        $(function () {
+            $("select").select2({
+                templateSelection: function (selection) {
+                    return $.trim(selection.text);
+                },
+                templateResult: function (option) {
+                    if ($(option.element).attr("disabled")) {
+                        return $("<b>" + option.text + "</b>").css("color", "black");
+                    } else {
+                        return option.text;
+                    }
+                }
+            });
+        });
+    </script>
+{% endblock %}

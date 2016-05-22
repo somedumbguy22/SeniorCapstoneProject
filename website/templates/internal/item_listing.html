@@ -1,0 +1,47 @@
+{% load stars %}
+{% load filters %}
+{% if items %}
+    <table>
+        {% for entry in items %}
+            <tr>
+                <td style="width: 200px">
+                    <center>
+                        <a href="{{ entry.link }}">
+                            <img class="thumbnail" src="{{ entry.item.ImageBlob }}"/>
+                        </a>
+                    </center>
+                </td>
+                <td style="padding-left: 20px; vertical-align: top;">
+                    <a href="{{ entry.link }}">
+                        <h4>{{ entry.item.Name }}</h4>
+                    </a>
+                    {% rating_stars initial=entry.rating caption="Average rating:" %}
+                    {% if entry.available %}
+                        <b>Available listings:</b>
+                        <ul>
+                            {% if entry.auctions %}
+                                <li>{{ entry.auctions|length }} for auction</li>
+                            {% endif %}
+                            {% if entry.direct_sales %}
+                                <li>{{ entry.direct_sales|length }} for instant purchase
+                                    ({{ entry.min_direct_sale|currency }}
+                                    lowest price)
+                                </li>
+                            {% endif %}
+                        </ul>
+                    {% else %}
+                        <em>Not currently available</em>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <em>No items to display</em>
+{% endif %}
+<style>
+    .thumbnail {
+        max-width: 200px;
+        max-height: 200px;
+    }
+</style>

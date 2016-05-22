@@ -1,0 +1,14 @@
+{% extends "internal/base.html" %}
+{% load staticfiles %}
+{% load category_tree %}
+
+{% block main-container %}
+    <div class="row">
+        <div class="col-md-2">
+            {% category_tree active=active_category %}
+        </div>
+        <div class="col-md-10">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+{% endblock %}

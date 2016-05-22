@@ -1,0 +1,14 @@
+{% extends "twocolumn.html" %}
+{% block title %}Jambalaya: A thick stew of tasty deals{% endblock %}
+{% block content %}
+
+    <h1>Recently Viewed Items</h1>
+
+    {% if not recently_viewed %}
+        No Search Results Found
+    {% endif %}
+    {% for results in recently_viewed %}
+        <li>{{ results.Name }}, {{ results.Description }}</li>
+    {% endfor %}
+
+{% endblock %}

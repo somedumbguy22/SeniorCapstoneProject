@@ -1,0 +1,14 @@
+{% extends "twocolumn.html" %}
+{% block title %}Jambalaya: A thick stew of tasty deals{% endblock %}
+{% block content %}
+
+    <h1>Hot Deals of the Week!</h1>
+
+    {% if not foundEntries %}
+        No Search Results Found
+    {% endif %}
+    {% for results in hot_items %}
+        <li>{{ results.Name }}, {{ results.Description }}</li>
+    {% endfor %}
+
+{% endblock %}

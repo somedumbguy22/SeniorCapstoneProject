@@ -1,0 +1,140 @@
+{% extends "twocolumn.html" %}
+{% load filters %}
+{% load stars %}
+{% load staticfiles %}
+{% block title %}Jambalaya: A thick stew of tasty deals{% endblock %}
+{% block content %}
+    <p><a href="{% url "browse_category" category_id=active_category category_name=" " %}"><< More in this category</a>
+    </p>
+    <div class="media">
+        <div class="media-left">
+            <img class="media-object thumbnail" src="{{ item.ImageBlob }}"/>
+
+            <p><b>Have one to sell? <a href="{{ sell_link }}">List it!</a></b></p>
+        </div>
+        <div class="media-body">
+            <h1 class="media-header">{{ item.Name }}</h1>
+            {% rating_stars initial=rating count=rating_count caption="Average rating:" %}
+            <br/>
+            <h4 class="media-heading">From the manufacturer:</h4>
+            {{ item.Description }}
+        </div>
+    </div>
+    <br/>
+    <ul class="nav nav-tabs" data-toggle="tabs">
+        <li role="presentation" class="active"><a href="#listings" data-toggle="tab">Listings</a></li>
+        <li role="presentation"><a href="#ratings" data-toggle="tab">Ratings</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="listings" role="tabpanel">
+            {% if direct_sales %}
+                <h4>For instant purchase:</h4>
+                <br/>
+                <table class="table table-stripped">
+                    <tr>
+                        <th style="width: 150px">Price</th>
+                        <th style="width: 200px">Condition</th>
+                        <th style="width: 250px">Offered by</th>
+                        <th>Buy now</th>
+                    </tr>
+                    {% for entry in direct_sales %}
+                        <tr>
+                            <td>
+                                {{ entry.listing.Price|currency }}
+                            </td>
+                            <td>
+                                {{ entry.listing.Condition }}
+                            </td>
+                            <td>
+                                {{ entry.listing.Seller.Name }}
+                                {% rating_stars caption=False initial=entry.seller_rating %}
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-default btn-sm">
+                                    Add to cart
+                                </button>
+                                &nbsp;({{ entry.listing.Quantity }} available)
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+            {% if auctions %}
+                <h4>For auction:</h4>
+                <br/>
+                <table class="table table-stripped">
+                <tr>
+                    <th style="width: 150px">Highest bid</th>
+                    <th style="width: 200px">Condition</th>
+                    <th style="width: 250px">Offered by</th>
+                    <th>Bid now</th>
+                    <th>Auction ends</th>
+                </tr>
+                {% for entry in auctions %}
+                <tr>
+                <td>
+                    {% if entry.bids %}
+                        {{ entry.high_bid|currency }}
+                    {% else %}
+                        <em>No bids</em>
+                    {% endif %}
+                </td>
+                <td>
+                {{ entry.listing.Condition }}
+                </td>
+                <td>
+                    {{ entry.listing.User.Username }}
+                </td>
+                <td>
+                    <button type="button" class="btn btn-default btn-sm">
+                        Make a bid
+                    </button>
+                    &nbsp;({{ entry.bids }} bids currently)
+                </td>
+                <td>
+                    {{ entry.expires }}
+                </td>
+                </tr>
+                {% endfor %}
+                </table>
+            {% endif %}
+        </div>
+        <div class="tab-pane" id="ratings" role="tabpanel">
+            <h4>From our customers:</h4>
+            {% for entry in ratings %}
+                <div class="media">
+                    <div class="media-left">
+                        <a href="#">
+                            <img class="media-object commentor" src="{% static entry.commentor %}" alt="">
+                        </a>
+                        Review by: <b>{{ entry.rating.User.Username }}</b>
+                    </div>
+                    <div class="media-body">
+                        {% rating_stars initial=entry.rating.Rating caption="Rating:" %}
+                        {{ entry.rating.Comment }}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+{% block style %}
+    <style>
+        .commentor {
+            width: 150px;
+            height: 150px;
+        }
+        .media-object {
+            max-width: 350px;
+            max-height: 350px;
+        }
+
+        .media-body {
+            padding-left: 20px;
+        }
+
+        td {
+            vertical-align: middle !important;
+        }
+    </style>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "onecolumn.html" %}
+{% load staticfiles %}
+{% block navbar %}
+{% endblock %}
+{% block title %}Login{% endblock %}
+{% block content %}
+    <link rel="stylesheet" href="{% static "css/auth.css" %}"/>
+    <div class="container">
+        <form class="form-signin" method="post" action="{% url "login" %}">
+            {% csrf_token %}
+            <a href="/">
+                <img id="logo" src="{% static "images/logo_alpha.png" %}"/>
+            </a>
+            <br/>
+            <br/>
+
+            <p>Don't have an account?&nbsp; <a href="/register">Register now!</a></p>
+            <br/>
+
+            <h2 class="form-signin-heading text-center">Please sign in</h2>
+            <label for="id_username" class="sr-only">Email address</label>
+            <input id="id_username" name="username" class="form-control" placeholder="Email address or username"
+                   required autofocus>
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input type="password" id="id_password" name="password" class="form-control" placeholder="Password"
+                   required>
+            <button class="btn btn-lg btn-primary btn-block" type="submit" value="login">Sign in</button>
+            <input type="hidden" name="next" value="{{ next }}"/>
+            {% if form.errors %}
+                <br/>
+                <div class="alert alert-danger" role="alert">
+                    <span class="glyphicon glyphicon-alert pull-left"></span>
+                    <span class="pull-right">Username/password mismatch. Try again.</span>
+                    <span class="clearfix"></span>
+                </div>
+            {% endif %}
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,26 @@
+<table class="rating-table">
+    <tr>
+        {% if caption %}
+            <td>
+                <label for="{{ id }}">
+                    {{ caption }}
+                </label>
+            </td>
+            <td>&nbsp;</td>
+        {% endif %}
+        <td>
+            {% if initial == None %}
+                <input id="{{ id }}" type="number" class="rating" min="0" max="5" data-show-caption="false"
+                       data-size="xs"/>
+            {% else %}
+                <input id="{{ id }}" type="number" class="rating" min="0" max="5" step="0.5"
+                       data-show-clear="false" data-show-caption="false" data-size="xs" value="{{ initial }}" readonly/>
+            {% endif %}
+        </td>
+        {% if count %}
+            <td>
+                &nbsp;({{ count }} ratings)
+            </td>
+        {% endif %}
+    </tr>
+</table>

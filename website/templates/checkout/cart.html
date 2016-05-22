@@ -1,0 +1,100 @@
+{% extends "twocolumn.html" %}
+{% load filters %}
+{% load staticfiles %}
+{% block title %}Jambalaya: A thick stew of tasty deals{% endblock %}
+{% block content %}
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Your Cart</div>
+
+        <!-- Table -->
+        <table class="table">
+            <tr>
+                {% for entry in cart_contents %}
+                <div class="row">
+                    <div class="">
+
+                        <div class="thumbnail cart-row">
+                            <img src="{{ entry.DirectSaleListing.Item.ImageBlob }}">
+                            <div class="item-desc">
+                                <div class="caption">
+                                    <h4>{{ entry.DirectSaleListing.Item.Name }}</h4>
+                                    <p>{{ entry.DirectSaleListing.Item.Description }}</p>
+                                    <br><br>
+                                    <p>sold by: {{ entry.DirectSaleListing.Seller.Name }}</p>
+                                </div>
+                            </div>
+                            <div class="cart-button-options-container">
+                                <p>
+                                    <a href="#" class="btn btn-primary" role="button">Remove</a>
+                                </p>
+                            </div>
+                            <div class="cart-price-container">
+                                <p>${{ entry.DirectSaleListing.Price|multiply:entry.Quantity }}</p>
+                                <p>quantity: {{ entry.Quantity }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </tr>
+        </table>
+    </div>
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Order History</div>
+
+        <!-- Table -->
+        <table class="table">
+            {% for orderItem in user.orders %}
+                <tr>
+                    <div class="row">
+                        <div class="">
+                            <div class="thumbnail cart-row">
+                                Order Date: <br>
+                                {{ orderItem.orderDate }}<br><br>
+                                <h4><a href="#">View Order Details</a></h4>
+                                <img src="{% static "images/noImage.png" %}" alt="{% static "images/noImage.png" %}">
+                                <div class="item-desc">
+                                    <div class="caption">
+                                        <h4>{{ orderItem.itemName }}</h4>
+                                        <p>{{ orderItem.description }}</p>
+                                        {% if orderItem.status == 1 %}
+                                            <div class="alert alert-info" role="alert">
+                                                <span class="glyphicon glyphicon-transfer"></span>
+                                                Your item shipped on <b>{{ orderItem.date }}</b><br>
+                                                Tracking Number:
+                                                <a href="#" class="alert-link">696969696969</a>
+                                            </div>
+                                        {% elif orderItem.status == 2 %}
+                                            <div class="alert alert-success" role="alert">
+                                                <span class="glyphicon glyphicon-ok-sign"></span>
+                                                Delivered On <b>April 69, 1969</b><br>
+                                                Tracking Number:
+                                                <a href="#" class="alert-link">696969696969</a>
+                                            </div>
+                                        {% else %}
+                                            <div class="alert alert-info" role="alert">
+                                                <span class="glyphicon glyphicon-info-sign"></span>
+                                                Nothing new has happened on your order yet. Check back soon!
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="cart-button-options-container">
+                                    <p>
+                                        <a href="#" class="btn btn-primary buttons" role="button">Rate Item</a><br><br>
+                                        <a href="#" class="btn btn-primary buttons" role="button">Rate Seller</a>
+                                    </p>
+                                </div>
+                                <div class="cart-price-container">
+                                    <p>{{ orderItem.price }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

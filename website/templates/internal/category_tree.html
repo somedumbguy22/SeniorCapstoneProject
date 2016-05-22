@@ -1,0 +1,6 @@
+{% load staticfiles %}
+<div id="category_tree"></div>
+<script>
+    var category_data = {{ data|safe }};
+</script>
+<script src="{% static "js/categories.js" %}"></script>

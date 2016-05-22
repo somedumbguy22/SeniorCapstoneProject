@@ -1,0 +1,36 @@
+{% extends "onecolumn.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}Jambalaya: List an item{% endblock %}
+{% block content %}
+    <h1>Create listing</h1>
+    <p>You are now creating a listing for <b><em>{{ item_name }}</em></b>. {% if not item_exists %}After you submit this
+        information, both your product and listing will be created.{% endif %}</p>
+    {% crispy form %}
+{% endblock %}
+{% block scripts %}
+    <script>
+        $(function () {
+            var auction_selection = $("#id_is_auction");
+
+            auction_selection.change(function () {
+                var is_auction = ($(this).prop("value") == 1);
+                $("#auction_group").toggle(is_auction);
+                $("#direct_sale_group").toggle(!is_auction);
+            }).trigger("change");
+
+            $("form").submit(function () {
+                if (auction_selection.prop("value") == 1) {
+                    // We have an auction
+                    $("#id_quantity").val("1");
+                    $("#id_direct_sale_price").val("0.01");
+                } else {
+                    $("#id_auction_min_price").val("2");
+                }
+            });
+
+            $("[data-toggle='tooltip']").tooltip();
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends "twocolumn.html" %}
+{% load staticfiles %}
+{% block title %}Jambalaya: A thick stew of tasty deals{% endblock %}
+{% block content %}
+    {{ order_id }}
+    <h1>Order Details</h1>
+    <div class="panel panel-default  shipment-tracking-panel">
+        <!-- Default panel contents -->
+        <div class="panel-heading">
+            <h4>Shipping Details</h4>
+            <table class="shipment-table">
+                <tr>
+                    <td><b>Shipping status</b></td>
+                    <td><!--current status of shipment--></td>
+                </tr>
+                <tr>
+                    <td><b>Last scanned date</b></td>
+                    <td><!--last order event date--></td>
+                </tr>
+                <tr>
+                    <td><b>Package location</b></td>
+                    <td><!--last order event location--></td>
+                </tr>
+                <tr>
+                    <td><b>Shipping carrier</b></td>
+                    <td>USPS</td>
+                </tr>
+                <tr>
+                    <td><b>Tracking number</b></td>
+                    <td><!--order tracking number--></td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+    <div class="panel panel-default  shipment-address-panel">
+        <!-- Default panel contents -->
+        <div class="panel-heading">
+            <h4 class="">Shipping Address</h4>
+        </div>
+        {% for user in dictionary %}
+            <h4>{{ user.FirstName }} {{ user.LastName }}</h4>
+            {% for address in user.addresses %}
+                {{ address.StreetNumber }} {{ address.StreetName }}<br> {{ address.State }}, {{ address.Zipcode }}
+            {% endfor %}
+        {% endfor %}
+    </div>
+    <div class="panel panel-default  order-total-panel">
+        <!-- Default panel contents -->
+        <div class="panel-heading">
+            <h4 class="">Order Total</h4>
+        </div>
+        <p><b>Subtotal</b>&nbsp;</p>
+        <p><b>Shipping</b>&nbsp;</p>
+    </div>
+    <div class="panel panel-default order-details-panel">
+        <!-- Default panel contents -->
+        <div class="panel-heading">
+            <h4 class="">Order Details</h4>
+        </div>
+        <p><b>Item</b>&nbsp;</p>
+    </div>
+{% endblock %}

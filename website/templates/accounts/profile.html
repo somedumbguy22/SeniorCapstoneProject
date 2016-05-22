@@ -1,0 +1,70 @@
+{% extends "onecolumn.html" %}
+{% load staticfiles %}
+{% block title %}Jambalaya: A thick stew of tasty deals{% endblock %}
+{% block content %}
+    <div id="user-profile-back"></div>
+    <div id="user-profile-outer">
+        <div class="user-profile">
+            <h3>{{ s_user.Username }}</h3>
+            {{ s_user.FirstName }} {{ s_user.LastName }}<br>
+            Member since: {{ s_user.DateJoined }}<br>
+
+            <br><br>
+            <div class="navSection">
+                <div class="navContainer">
+                    <div class="navLink">
+                        <div class="colorButton aboutButton">
+
+                        </div>
+                        <p>About Me</p>
+                    </div>
+                </div>
+
+                <div class="navContainer">
+                    <div class="navLink">
+                        <div class="colorButton workButton">
+
+                        </div>
+                        <p>Projects</p>
+                    </div>
+                </div>
+
+                <div class="navContainer">
+                    <div class="navLink">
+                        <div class="colorButton coursesButton">
+
+                        </div>
+                        <p>Courses</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slideDownContainer">
+                <div class="aboutSlideDown">
+
+                </div>
+            </div>
+
+            <div class="slideDownContainer">
+                <div class="workSlideDown">
+
+                </div>
+            </div>
+
+            <div class="slideDownContainer">
+                <div class="coursesSlideDown">
+
+                </div>
+            </div>
+            <ul class="nav nav-tabs">
+                <li role="presentation" class="active"><a href="#">Addresses</a></li>
+                <li role="presentation"><a href="#">Orders</a></li>
+                <li role="presentation"><a href="#">Auctions</a></li>
+            </ul>
+            <br>
+            Addresses:
+            {% for address in s_user.addresses %}
+                <li>{{ address.StreetNumber }} {{ address.StreetName }}, {{ address.State }}, {{ address.Zipcode }}</li>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

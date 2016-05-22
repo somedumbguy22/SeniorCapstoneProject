@@ -1,0 +1,14 @@
+{% extends "twocolumn.html" %}
+{% block title %}Jambalaya: A thick stew of tasty deals{% endblock %}
+{% block content %}
+
+    <h1>Search Results</h1>
+
+    {% if not query_string %}
+        No Search Results Found
+    {% endif %}
+    {% for r in results %}
+        <li>{{ r.Name }}, {{ r.Description }}</li>
+    {% endfor %}
+
+{% endblock %}
